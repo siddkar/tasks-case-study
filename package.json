@@ -1,0 +1,31 @@
+{
+    "name": "tasks-case-study",
+    "version": "1.0.0",
+    "description": "Authentication and Tasks Case Study ",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/siddkar/tasks-case-study.git"
+    },
+    "keywords": [
+        "auth",
+        "microservices",
+        "crud",
+        "rest",
+        "api",
+        "tasks",
+        "mongo"
+    ],
+    "author": "Siddharth Kar",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/siddkar/tasks-case-study/issues"
+    },
+    "homepage": "https://github.com/siddkar/tasks-case-study#readme",
+    "devDependencies": {
+        "concurrently": "^6.2.1"
+    }
+}
