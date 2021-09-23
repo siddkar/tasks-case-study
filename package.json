@@ -4,7 +4,12 @@
     "description": "Authentication and Tasks Case Study ",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build:auth-app": "cd auth-management-service && npm run build",
+        "start:auth-app": "cd auth-management-service && npm run start:dev",
+        "build:tasks-app": "cd tasks-management-service  && npm run build",
+        "start:tasks-app": "cd tasks-management-service  && npm run start:dev",
+        "start:all": "concurrently \"npm run start:auth-app\" \"npm run start:tasks-app\" --kill-others"
     },
     "repository": {
         "type": "git",

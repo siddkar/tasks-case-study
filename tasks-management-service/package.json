@@ -1,0 +1,44 @@
+{
+    "name": "tasks-management-service",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server:prod": "node dist/app.js",
+        "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./.prettierrc,./.eslintrc,./package.json,./.editorconfig,./npm-debug.log --copy-files",
+        "start:dev": "nodemon --watch src --watch app.js --exec babel-node app.js",
+        "clean": "rimraf dist",
+        "prod": "npm-run-all clean build",
+        "format": "prettier --write \"./**/*.js\""
+    },
+    "keywords": [],
+    "author": "Apache-2.0",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.21.4",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.0.7",
+        "pino": "^6.13.0",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.15.4",
+        "@babel/core": "^7.15.5",
+        "@babel/node": "^7.15.4",
+        "@babel/plugin-transform-runtime": "^7.15.0",
+        "@babel/preset-env": "^7.15.6",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.24.2",
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.12",
+        "prettier": "^2.4.0"
+    }
+}
