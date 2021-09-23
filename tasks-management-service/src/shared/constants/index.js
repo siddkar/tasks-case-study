@@ -16,3 +16,8 @@ export const ERROR_TYPE = Object.freeze({
     FORBIDDEN: "FORBIDDEN",
     UNPROCESSABLE: "UNPROCESSABLE",
 });
+
+export const SCOPE = Object.freeze({
+    READ: "READ",
+    READ_WRITE: "READ_WRITE",
+});

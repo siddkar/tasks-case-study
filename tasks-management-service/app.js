@@ -4,6 +4,7 @@ import express from "express";
 import pino from "pino";
 import correlationIdMiddleware from "./src/shared/utils/correlation.id.middleware";
 import httpErrorHandlerMiddleware from "./src/shared/utils/http.error.handler.middleware";
+import taskRouter from "./src/routes/task-routes/task.routes";
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ app.use(cors());
 app.use(correlationIdMiddleware());
 app.use(express.json());
 
-//app.use(`${contextPath}/tasks`, tasksRouter);
+app.use(`${contextPath}/tasks`, taskRouter);
 
 app.use(httpErrorHandlerMiddleware());
 
