@@ -17,5 +17,5 @@ export const ERROR_TYPE = Object.freeze({
 
 export const TOKEN_TYPE = Object.freeze({
     ACCESS_TOKEN: "ACCESS_TOKEN",
-    SESSION_TOKEN: "REFRESH_TOKEN",
+    SESSION_TOKEN: "SESSION_TOKEN",
 });

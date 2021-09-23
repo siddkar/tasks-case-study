@@ -59,7 +59,7 @@ paths:
                         Set-Cookie:
                             schema:
                                 type: string
-                                example: refreshToken=abcde12345; HttpOnly
+                                example: sessionToken=abcde12345; HttpOnly
                 "400":
                     description: Bad request
                     content:
@@ -128,7 +128,7 @@ paths:
                         Set-Cookie:
                             schema:
                                 type: string
-                                example: refreshToken=abcde12345; HttpOnly
+                                example: sessionToken=abcde12345; HttpOnly
                 "400":
                     description: Bad request
                     content:
@@ -147,13 +147,13 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/APIErrorResponse"
-    "/refresh-token":
+    "/refresh-session":
         post:
             tags:
                 - auth
             summary: Refresh user session
             description: Refresh user session
-            operationId: refreshToken
+            operationId: refreshSession
             security:
                 - cookieAuth: []
             parameters:
