@@ -1,0 +1,383 @@
+openapi: 3.0.2
+info:
+    title: Auth Management Service
+    description: This service takes care of authentication management
+    contact:
+        email: siddharth.kar@outlook.com
+    version: 1.0.0
+servers:
+    - url: /auth-management-service/v1
+      variables:
+          basepath:
+              default: /auth-management-service/v1
+tags:
+    - name: auth
+      description: Authentication and Authorization Related Apis
+
+paths:
+    "/register":
+        post:
+            tags:
+                - auth
+            summary: Register an user
+            description: Register a user in the application
+            operationId: registerUser
+            parameters:
+                - name: "client_id"
+                  in: "query"
+                  description: "Client id (user pool id) to which the user belongs to"
+                  required: true
+                  schema:
+                      type: string
+                - name: "state"
+                  in: "query"
+                  description: "State to help prevent CSRF attacks"
+                  required: true
+                  schema:
+                      type: string
+                - name: "nounce"
+                  in: "query"
+                  description: "Nounce to help prevent token relay attacks"
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                description: Basic User Registration Details
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/RegistrationRequest"
+                required: true
+            responses:
+                "200":
+                    description: Successful registration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AuthenticatedResponse"
+                    headers:
+                        Set-Cookie:
+                            schema:
+                                type: string
+                                example: refreshToken=abcde12345; HttpOnly
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AuthenticatedResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "409":
+                    description: Conflict
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+    "/authenticate":
+        post:
+            tags:
+                - auth
+            summary: Authenticate an user
+            description: Authenticate a user to the application
+            operationId: authenticateUser
+            parameters:
+                - name: "client_id"
+                  in: "query"
+                  description: "Client id (user pool id) to which the user belongs to"
+                  required: true
+                  schema:
+                      type: string
+                - name: "state"
+                  in: "query"
+                  description: "State to help prevent CSRF attacks"
+                  required: true
+                  schema:
+                      type: string
+                - name: "nounce"
+                  in: "query"
+                  description: "Nounce to help prevent token relay attacks"
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                description: Basic User Details
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AuthenticateRequest"
+                required: true
+            responses:
+                "200":
+                    description: Successful registration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AuthenticatedResponse"
+                    headers:
+                        Set-Cookie:
+                            schema:
+                                type: string
+                                example: refreshToken=abcde12345; HttpOnly
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+    "/refresh-token":
+        post:
+            tags:
+                - auth
+            summary: Refresh user session
+            description: Refresh user session
+            operationId: refreshToken
+            security:
+                - cookieAuth: []
+            parameters:
+                - name: "client_id"
+                  in: "query"
+                  description: "Client id (user pool id) to which the user belongs to"
+                  required: true
+                  schema:
+                      type: string
+                - name: "state"
+                  in: "query"
+                  description: "State to help prevent CSRF attacks"
+                  required: true
+                  schema:
+                      type: string
+                - name: "nounce"
+                  in: "query"
+                  description: "Nounce to help prevent token relay attacks"
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Successful registration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AuthenticatedResponse"
+                    headers:
+                        Set-Cookie:
+                            schema:
+                                type: string
+                                example: sessionToken=abcde12345; HttpOnly
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+    "/verify-token":
+        post:
+            tags:
+                - auth
+            summary: Verify token and return user info
+            description: Verify token and return user info
+            operationId: verifyToken
+            security:
+                - bearerAuth: []
+            responses:
+                "200":
+                    description: Successful registration
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/UserinfoResponse"
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+    "/logout":
+        post:
+            tags:
+                - auth
+            summary: Logs out a user
+            description: Logs out a user and removes user session
+            operationId: logoutUser
+            security:
+                - bearerAuth: []
+                - cookieAuth: []
+            responses:
+                "200":
+                    description: Successful logout
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/APIErrorResponse"
+components:
+    schemas:
+        AuthenticateRequest:
+            type: object
+            properties:
+                email:
+                    description: Email id of the user a.k.a username
+                    example: test.user@test.com
+                password:
+                    type: string
+                    description: Password of the user
+                    example: "********"
+            required:
+                - email
+                - password
+        RegistrationRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Name of the user
+                    example: Test User
+                email:
+                    type: string
+                    description: Email id of the user a.k.a username
+                    example: test.user@test.com
+                password:
+                    type: string
+                    description: Password of the user
+                    example: "********"
+                confirmPassword:
+                    type: string
+                    description: Confirm Password of the user, should be same as password
+                    example: "********"
+            required:
+                - name
+                - email
+                - password
+                - confirmPassword
+        AuthenticatedResponse:
+            type: object
+            properties:
+                accessToken:
+                    type: string
+                    description: User access token
+                state:
+                    type: string
+                    description: State
+                tokenType:
+                    type: string
+                    description: The type of the token
+                expiresIn:
+                    type: number
+                    description: Access token expiration time
+        UserinfoResponse:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Name of the user
+                    example: Test User
+                email:
+                    type: string
+                    description: Email id of the user a.k.a username
+                    example: test.user@test.com
+                scopes:
+                    type: array
+                    items:
+                        type: string
+                    description: Allowed user scopes
+        APIErrorResponse:
+            type: object
+            properties:
+                correlationId:
+                    type: string
+                    description: Correlation ID
+                errorCode:
+                    type: string
+                    description: Client understandable error code
+                errorMessage:
+                    type: string
+                    description: Error Message
+                forbiddenErrorType:
+                    type: string
+                    description: Forbidden Error Type, in case of 403 status code
+                errorList:
+                    type: array
+                    items:
+                        type: string
+                    description: List of errors in case of 400 bad request
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+        cookieAuth:
+            type: apiKey
+            in: cookie
+            name: sessionToken

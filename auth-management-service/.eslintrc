@@ -1,0 +1,23 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": ["airbnb-base", "prettier"],
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "plugins": ["import", "prettier"],
+    "rules": {
+        "indent": ["error", 4],
+        "linebreak-style": 0,
+        "semi": ["error", "always"],
+        "max-len": ["error", 150],
+        "quotes": ["error", "double"],
+        "comma-dangle": ["error", "ignore"],
+        "no-tabs": ["error", { "allowIndentationTabs": true }],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+    }
+}
