@@ -1,7 +1,6 @@
-import makeUserPoolDb from "./user.pool.db";
-import connectDb from "../config/db.config";
+import makeTaskDb from "./tasks.db";
 
-export const userPoolDb = makeUserPoolDb({ connectDb });
+export const taskDb = makeTaskDb();
 export default {
-    userPoolDb,
+    taskDb,
 };
