@@ -17,7 +17,7 @@ taskRouter.post(
 );
 
 taskRouter.get(
-    "/:parcelId",
+    "/:id",
     tokenVerificationMiddleware([SCOPE.READ_WRITE, SCOPE.READ]),
     makeExpressCallback(getTaskById)
 );
@@ -29,13 +29,13 @@ taskRouter.get(
 );
 
 taskRouter.patch(
-    "/:parcelId",
+    "/:id",
     tokenVerificationMiddleware([SCOPE.READ_WRITE]),
     makeExpressCallback(patchTask)
 );
 
 taskRouter.delete(
-    "/:parcelId",
+    "/:id",
     tokenVerificationMiddleware([SCOPE.READ_WRITE]),
     makeExpressCallback(deleteTask)
 );
