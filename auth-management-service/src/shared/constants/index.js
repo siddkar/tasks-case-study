@@ -19,3 +19,8 @@ export const TOKEN_TYPE = Object.freeze({
     ACCESS_TOKEN: "ACCESS_TOKEN",
     SESSION_TOKEN: "SESSION_TOKEN",
 });
+
+export const SCOPE = Object.freeze({
+    READ: "READ",
+    READ_WRITE: "READ_WRITE",
+});

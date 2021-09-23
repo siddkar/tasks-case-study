@@ -1,5 +1,5 @@
 import pino from "pino";
-import { SCOPE, USER_TYPE, ERROR_TYPE } from "../shared/constants";
+import { ERROR_TYPE, SCOPE } from "../shared/constants";
 
 /**
  * Build an user entity
@@ -7,15 +7,7 @@ import { SCOPE, USER_TYPE, ERROR_TYPE } from "../shared/constants";
  */
 export default function buildUser(
     correlationId,
-    {
-        clientId,
-        email,
-        password,
-        name,
-        userType,
-        sessionTokenList = [],
-        createdTimestamp = new Date().toISOString(),
-    }
+    { clientId, email, password, name, sessionTokenList = [] }
 ) {
     const logger = pino({
         name: "user.entity",
@@ -56,20 +48,20 @@ export default function buildUser(
         throw { type: ERROR_TYPE.BAD_DATA, errorList, correlationId };
     }
 
+    const scopes = [SCOPE.READ, SCOPE.READ_WRITE];
+
     return Object.freeze({
         getUser: () => ({
             clientId,
             email,
             name,
             password,
-            scope,
+            scopes,
             sessionTokenList,
-            createdTimestamp,
         }),
         getUserinfo: () => ({
             email,
             name,
-            createdTimestamp,
         }),
     });
 }
