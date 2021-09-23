@@ -12,19 +12,20 @@ export default async function createTask(correlationId, taskDetails) {
     const logger = pino({
         name: "create.task.usecase",
     });
-    logger.info({ correlationId, msg: "Started create parcel usecase" });
+    logger.info({ correlationId, msg: "Started create task usecase" });
 
     logger.info({ correlationId, msg: "Build task" });
 
-    const task = buildTask(correlationId, { ...taskDetails }).gettask();
+    const task = buildTask(correlationId, { ...taskDetails }).getTask();
 
     logger.info({ correlationId, msg: "Validations complete" });
 
     logger.info({ correlationId, msg: "Save task to task DB" });
 
-    await taskDb.insert(task);
+    const createdTask = await taskDb.insert(task);
+    console.log("createdTask", createdTask);
 
     logger.info({ correlationId, msg: "Completed task usecase" });
 
-    return parcel;
+    return { ...task, id: createdTask._doc._id };
 }

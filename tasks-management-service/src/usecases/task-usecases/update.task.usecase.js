@@ -30,5 +30,9 @@ export default async function updateTask(correlationId, id, taskUpdates) {
 
     logger.info({ correlationId, msg: "Completed update task usecase" });
 
-    return buildTask(correlationId, { ...task, id: task._id, ...taskUpdates });
+    return buildTask(correlationId, {
+        ...task._doc,
+        id: task._doc._id,
+        ...taskUpdates,
+    }).getTask();
 }

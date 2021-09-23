@@ -13,14 +13,14 @@ export default async function getTasks(httpRequest) {
     });
     const {
         headers: { correlationId },
-        query: { isCompleted },
+        query: { isCompleted, title, taskExecutionTimestamp },
     } = httpRequest;
 
     logger.info({ correlationId, msg: "Started get tasks controller" });
 
     const response = await searchTasks(correlationId, {
         title,
-        timeExecutionTimeStamp,
+        taskExecutionTimestamp,
         isCompleted,
     });
 

@@ -1,5 +1,6 @@
 import pino from "pino";
 import { taskDb } from "../../data-access/db";
+import buildTask from "../../entities/task";
 import { ERROR_TYPE } from "../../shared/constants";
 
 /**
@@ -27,5 +28,8 @@ export default async function fetchTask(correlationId, id) {
     }
     logger.info({ correlationId, msg: "Completed fetch task usecase" });
 
-    return task;
+    return buildTask(correlationId, {
+        ...task._doc,
+        id: task._doc._id,
+    }).getTask();
 }

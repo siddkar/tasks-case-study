@@ -1,5 +1,5 @@
 import pino from "pino";
-import removeTask from "../../usecases/task-usecases/update.task.usecase";
+import removeTask from "../../usecases/task-usecases/remove.task.usecase";
 
 /**
  * Deletes a task
@@ -8,7 +8,7 @@ import removeTask from "../../usecases/task-usecases/update.task.usecase";
 
 export default async function deleteTask(httpRequest) {
     const logger = pino({
-        name: "patch.task.controller",
+        name: "delete.task.controller",
     });
     const {
         headers: { correlationId },

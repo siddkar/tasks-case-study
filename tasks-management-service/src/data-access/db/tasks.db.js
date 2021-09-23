@@ -6,7 +6,7 @@ export default function makeUserPoolDb() {
      * @param {*} taskDetails
      */
     async function insert(taskDetails) {
-        await TaskSchema.create(taskDetails);
+        return await TaskSchema.create(taskDetails);
     }
 
     /**
@@ -32,7 +32,7 @@ export default function makeUserPoolDb() {
      * @returns list of task
      */
     async function find() {
-        return await TaskSchema.find();
+        return await TaskSchema.find({}).exec();
     }
 
     /**
