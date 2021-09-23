@@ -8,15 +8,14 @@ import { TOKEN_TYPE, ERROR_TYPE } from "../constants";
  * @returns access token
  */
 export const generateAccessToken = (
-    { clientId, email, name, scope, userType },
+    { clientId, email, name, scopes },
     nounce
 ) => {
     return jwt.sign(
         {
             clientId,
-            userType,
             nounce,
-            scopes: [scope],
+            scopes,
             data: {
                 email,
                 name,
@@ -59,12 +58,13 @@ export const generateSessionToken = ({ clientId, email }) => {
 export const verifyToken = (correlationId, token, tokenType) => {
     let secret = process.env.ACCESS_TOKEN_SECRET;
     if (tokenType === TOKEN_TYPE.SESSION_TOKEN) {
-        secret = process.env.SESSION_TOKEN_EXPIRY;
+        secret = process.env.SESSION_TOKEN_SECRET;
     }
     try {
         const decodedToken = jwt.verify(token, secret);
         return decodedToken;
     } catch (err) {
+        console.log("err >> ", err);
         throw {
             type: ERROR_TYPE.FORBIDDEN,
             message: `Forbidden user, ${err.message}`,

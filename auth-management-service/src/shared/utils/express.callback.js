@@ -11,6 +11,7 @@ function makeExpressCallback(controller) {
                 path: req.path,
                 cookies: req.cookies,
                 signedCookies: req.signedCookies,
+                userinfo: req.userinfo,
                 headers: {
                     "Content-Type": req.get("Content-Type"),
                     Referer: req.get("referer"),

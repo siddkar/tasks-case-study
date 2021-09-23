@@ -6,7 +6,7 @@ export default function makeUserPoolDb() {
      * @param {*} userDetails
      */
     async function insert(userDetails) {
-        await new UserSchema.create(userDetails);
+        await UserSchema.create(userDetails);
     }
 
     /**
@@ -16,7 +16,7 @@ export default function makeUserPoolDb() {
      * @returns user
      */
     async function findById(clientId, email) {
-        return await new UserSchema.findOne({ clientId, email });
+        return await UserSchema.findOne({ clientId, email });
     }
 
     /**
@@ -26,7 +26,7 @@ export default function makeUserPoolDb() {
      * @param {*} userDetails
      */
     async function update(clientId, email, updatedUserDetails) {
-        await new UserSchema.updateOne(
+        await UserSchema.updateOne(
             { clientId, email },
             { ...updatedUserDetails }
         );
@@ -37,7 +37,7 @@ export default function makeUserPoolDb() {
      * @returns list of user
      */
     async function find() {
-        return await new UserSchema.find();
+        return await UserSchema.find();
     }
 
     return Object.freeze({

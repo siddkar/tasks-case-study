@@ -19,7 +19,7 @@ export default function authMiddleware() {
                 authorization.split(" ")[1],
                 TOKEN_TYPE.ACCESS_TOKEN
             );
-            req.body = decodedToken;
+            req.userinfo = decodedToken;
             logger.info({ correlationId, msg: "Completed auth middleware" });
             return next();
         } catch (err) {
