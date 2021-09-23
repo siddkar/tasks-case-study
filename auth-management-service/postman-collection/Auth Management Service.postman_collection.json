@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "7d11598d-1500-470f-bfd6-516f116fe292",
+		"name": "Optilzy - Auth Management Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register-user-api",
+			"item": [
+				{
+					"name": "200 /register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb811309-38d2-453c-94af-8ec31050f35f",
+								"exec": [
+									"pm.environment.set(\"bearer_token\", pm.response.json().accessToken);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"testuser@test.com\",\n    \"password\": \"Test@123\",\n    \"confirmPassword\": \"Test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_auth_management_service}}/auth-management-service/v1/register?client_id=95eb2b6b-46be-4d38-a7dc-4c3cd865d2f7&state=foobar&nounce=abcd1234efgh5678",
+							"host": [
+								"{{base_url_auth_management_service}}"
+							],
+							"path": [
+								"auth-management-service",
+								"v1",
+								"register"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "95eb2b6b-46be-4d38-a7dc-4c3cd865d2f7"
+								},
+								{
+									"key": "state",
+									"value": "foobar"
+								},
+								{
+									"key": "nounce",
+									"value": "abcd1234efgh5678"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "authenticate-user-api",
+			"item": [
+				{
+					"name": "200 /authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c54622a5-27d9-4d81-8e71-0129e10f4b9b",
+								"exec": [
+									"pm.environment.set(\"bearer_token\", pm.response.json().accessToken);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser@test.com\",\n    \"password\": \"Test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_auth_management_service}}/auth-management-service/v1/authenticate?client_id=95eb2b6b-46be-4d38-a7dc-4c3cd865d2f7&state=foobar&nounce=abcd1234efgh5678",
+							"host": [
+								"{{base_url_auth_management_service}}"
+							],
+							"path": [
+								"auth-management-service",
+								"v1",
+								"authenticate"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "95eb2b6b-46be-4d38-a7dc-4c3cd865d2f7"
+								},
+								{
+									"key": "state",
+									"value": "foobar"
+								},
+								{
+									"key": "nounce",
+									"value": "abcd1234efgh5678"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "refresh-token-api",
+			"item": [
+				{
+					"name": "200 /refresh-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "edb22cbb-d4dd-46c8-be1b-46ef9da10a01",
+								"exec": [
+									"pm.environment.set(\"bearer_token\", pm.response.json().accessToken);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_auth_management_service}}/auth-management-service/v1/refresh-session?client_id=95eb2b6b-46be-4d38-a7dc-4c3cd865d2f7&state=foobar&nounce=abcd1234efgh5678",
+							"host": [
+								"{{base_url_auth_management_service}}"
+							],
+							"path": [
+								"auth-management-service",
+								"v1",
+								"refresh-session"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "95eb2b6b-46be-4d38-a7dc-4c3cd865d2f7"
+								},
+								{
+									"key": "state",
+									"value": "foobar"
+								},
+								{
+									"key": "nounce",
+									"value": "abcd1234efgh5678"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "verify-token-api",
+			"item": [
+				{
+					"name": "200 /verify-token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_auth_management_service}}/auth-management-service/v1/verify-token",
+							"host": [
+								"{{base_url_auth_management_service}}"
+							],
+							"path": [
+								"auth-management-service",
+								"v1",
+								"verify-token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "logout-token-api",
+			"item": [
+				{
+					"name": "200 /logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_auth_management_service}}/auth-management-service/v1/logout",
+							"host": [
+								"{{base_url_auth_management_service}}"
+							],
+							"path": [
+								"auth-management-service",
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
