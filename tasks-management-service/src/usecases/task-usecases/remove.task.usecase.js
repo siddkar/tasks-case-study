@@ -8,11 +8,11 @@ import { ERROR_TYPE } from "../../shared/constants";
  * @param {*} id
  * @returns
  */
-export default async function updateTask(correlationId, id) {
+export default async function removeTask(correlationId, id) {
     const logger = pino({
-        name: "update.task.usecase",
+        name: "remove.task.usecase",
     });
-    logger.info({ correlationId, msg: "Started delete task usecase" });
+    logger.info({ correlationId, msg: "Started remove task usecase" });
 
     logger.info({ correlationId, msg: "Check if task exists" });
     const task = await taskDb.findById(id);
@@ -27,5 +27,5 @@ export default async function updateTask(correlationId, id) {
 
     await taskDb.deleteById(id);
 
-    logger.info({ correlationId, msg: "Completed delete task usecase" });
+    logger.info({ correlationId, msg: "Completed remove task usecase" });
 }

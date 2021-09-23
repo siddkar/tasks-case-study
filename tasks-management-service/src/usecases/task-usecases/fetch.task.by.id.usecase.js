@@ -3,12 +3,12 @@ import { taskDb } from "../../data-access/db";
 import { ERROR_TYPE } from "../../shared/constants";
 
 /**
- * Fetch a parcel by id
+ * Fetch a task by id
  * @param {*} correlationId
  * @param {*} id
  * @returns
  */
-export default async function fetchtask(correlationId, id) {
+export default async function fetchTask(correlationId, id) {
     const logger = pino({
         name: "fetch.task.usecase",
     });
